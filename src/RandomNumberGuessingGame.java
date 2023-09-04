@@ -38,6 +38,10 @@ public class RandomNumberGuessingGame extends JFrame {
 	//Buttons for calculating, clearing, and saving game details
 	private JButton submitButton, newGameButton, saveButton; 
 	
+	private JSeparator separator;
+	
+	private JLabel nameLabel;
+	
 	//constructor for initializing the components
 	public RandomNumberGuessingGame(int number) {
 		initializeComponents();
@@ -45,7 +49,7 @@ public class RandomNumberGuessingGame extends JFrame {
 		setupListeners();
 		setTitle("Random Number Guessing Game");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		pack();
+		setSize(1000, 400);
 		setLocationRelativeTo(null);
 	}
 	
@@ -102,7 +106,9 @@ public class RandomNumberGuessingGame extends JFrame {
 		submitButton.setToolTipText("Submit a guessed value that is between the range you selected!");
 		newGameButton.setToolTipText("Want to start a new game? Click this button!");
 		
+		separator = new JSeparator();
 		
+		nameLabel = new JLabel("Random Number Guessing Game");
 	}
 	
 	//method to set up the layout of GUI components using GridBayLayout
@@ -113,10 +119,16 @@ public class RandomNumberGuessingGame extends JFrame {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.insets = new Insets(5, 10, 5, 10);
+	
+		
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		
+		contentPane.add(nameLabel, gbc);
 		
 		//Add random number components
 		gbc.gridx = 0;
-		gbc.gridy = 0;
+		gbc.gridy = 4;
 		contentPane.add(new JLabel("Select Range of Numbers: "), gbc);
 		//create a panel with a set of radio buttons
 		JPanel numberRangesPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -127,46 +139,49 @@ public class RandomNumberGuessingGame extends JFrame {
 		numberRangesPanel.add(customRangeRadioButton);
 		numberRangesPanel.add(customRangeTextField);
 		gbc.gridx = 1;
-		gbc.gridy = 0;
+		gbc.gridy = 4;
 		contentPane.add(numberRangesPanel, gbc);
 		
 		
 		gbc.gridx = 0;
-		gbc.gridy = 1;
+		gbc.gridy = 8;
 		//add label with message to enter a number
 		contentPane.add(new JLabel("Guess the number with the selected range: "), gbc);
 		gbc.gridx = 1;
-		gbc.gridy = 1;
+		gbc.gridy = 8;
 		//add the text field to type the number
 		contentPane.add(randomNumberTextField, gbc);
 		
 		//add buttons for actions
 		gbc.gridx = 0;
-		gbc.gridy = 2;
+		gbc.gridy = 12;
 		//add the buttons in one row
 		contentPane.add(submitButton, gbc);
 		gbc.gridx = 1;
-		gbc.gridy = 2;
+		gbc.gridy = 12;
 		contentPane.add(newGameButton, gbc);
 		gbc.gridx = 2;
-		gbc.gridy = 2;
+		gbc.gridy = 12;
 		contentPane.add(saveButton, gbc);
 		
 		gbc.gridwidth = 3;
 		gbc.gridx = 0;
-		gbc.gridy = 3;
-		gbc.weightx = 1;
-		contentPane.add(new JSeparator(), gbc);
+		gbc.gridy = 16;
+//		gbc.weightx = 100;
+		
+		separator.setPreferredSize(new Dimension(5, 24));
+		
+		contentPane.add(separator, gbc);
 		
 		//add labels and text files for calculation results
 		gbc.gridwidth = 1;
 		gbc.weightx = 0;
 		gbc.gridx = 0;
-		gbc.gridy = 4;
+		gbc.gridy = 20;
 		//add the label saying "Guess Results:" with the corresponding text field that displays the result
 		contentPane.add(guessResultlabel, gbc);
 		gbc.gridx = 1;
-		gbc.gridy = 4;
+		gbc.gridy = 20;
 		contentPane.add(resultTextField, gbc);	
 			
 	}
@@ -304,10 +319,10 @@ public class RandomNumberGuessingGame extends JFrame {
 				writer.println("Number Range: 1-50");
 			}
 			else if (oneHundredRadioButton.isSelected()) {
-				writer.println("Number Range: 1-50");
+				writer.println("Number Range: 1-100");
 			}
 			else if (twoHundredRadioButton.isSelected()) {
-				writer.println("Number Range: 1-50");
+				writer.println("Number Range: 1-200");
 			}
 			else {
 				writer.println("Number Range: " + customRangeTextField.getText());
@@ -315,7 +330,7 @@ public class RandomNumberGuessingGame extends JFrame {
 			
 			
 			
-			//compare if the text field for result is equal to the stirng will print wither win or lose to file
+			//compare if the text field for result is equal to the string will print with win or lose to file
 			//if (string1.equals(string2))
 			if ((resultTextField.getText()).equals("Unfortunately that is not the number.")) {
 				writer.println("Game status: lost");
@@ -353,6 +368,11 @@ public class RandomNumberGuessingGame extends JFrame {
 		});
 
 	}
+	
+	
+
+}
+
 	
 	
 
